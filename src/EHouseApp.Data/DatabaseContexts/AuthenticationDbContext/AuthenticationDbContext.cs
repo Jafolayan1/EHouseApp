@@ -8,7 +8,7 @@ using System.Text;
 
 namespace EHouseApp.Data.DatabaseContexts.AuthenticationDbContext
 {
-    class AuthenticationDbContext : IdentityDbContext<ApplicationUser>
+    public class AuthenticationDbContext : IdentityDbContext<ApplicationUser>
     {
         public AuthenticationDbContext(DbContextOptions<AuthenticationDbContext> options)
             : base(options)
@@ -17,3 +17,5 @@ namespace EHouseApp.Data.DatabaseContexts.AuthenticationDbContext
         }
     }
 }
+
+

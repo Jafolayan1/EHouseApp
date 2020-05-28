@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EHouseApp.Data.Entities
 {
-    class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
 
     }
