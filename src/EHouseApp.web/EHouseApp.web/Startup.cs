@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EHouseApp.Data.DatabaseContexts.ApplicationDbContext;
 using EHouseApp.Data.DatabaseContexts.AuthenticationDbContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +23,22 @@ namespace EHouseApp.web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContextPool<AuthenticationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection")));
+
+            //When sql run migration .. The migration folder should be created in the EhouseApp.Data project ...
+            services.AddDbContextPool<AuthenticationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection"),
+            sqlServerOptions => {
+                sqlServerOptions.MigrationsAssembly("EhouseApp.Data");
+            }
+            ));
+
+            //When sql run migration .. The migration folder should be created in the EhouseApp.Data project ...
+            services.AddDbContextPool<ApplicationDbContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection"), 
+            sqlServerOptions => {
+                sqlServerOptions.MigrationsAssembly("EHouseApp.Data");
+                }
+            ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
