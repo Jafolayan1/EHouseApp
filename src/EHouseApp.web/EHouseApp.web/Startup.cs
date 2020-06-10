@@ -28,7 +28,7 @@ namespace EHouseApp.web
             services.AddDbContextPool<AuthenticationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection"),
             sqlServerOptions => {
-                sqlServerOptions.MigrationsAssembly("EhouseApp.Data");
+                sqlServerOptions.MigrationsAssembly("ehouseapp.data");
             }
             ));
 
@@ -36,7 +36,7 @@ namespace EHouseApp.web
             services.AddDbContextPool<ApplicationDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection"), 
             sqlServerOptions => {
-                sqlServerOptions.MigrationsAssembly("EHouseApp.Data");
+                sqlServerOptions.MigrationsAssembly("ehouseapp.data");
                 }
             ));
         }
