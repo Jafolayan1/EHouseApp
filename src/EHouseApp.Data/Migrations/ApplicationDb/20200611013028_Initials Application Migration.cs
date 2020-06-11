@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EHouseApp.Data.Migrations.ApplicationDb
 {
-    public partial class InitialApplicationMigration : Migration
+    public partial class InitialsApplicationMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

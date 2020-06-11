@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-
 namespace EHouseApp.Data.Migrations
 {
     [DbContext(typeof(AuthenticationDbContext))]
