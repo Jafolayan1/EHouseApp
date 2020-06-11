@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using ehouseapp.data.DatabaseContexts.ApplicationDbContext;
-using ehouseapp.data.DatabaseContexts.AuthenticationDbContext;
-using ehouseapp.data.Entities;
+using EHouseApp.Data.DatabaseContexts.ApplicationDbContext;
+using EHouseApp.Data.DatabaseContexts.AuthenticationDbContext;
+using EHouseApp.Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

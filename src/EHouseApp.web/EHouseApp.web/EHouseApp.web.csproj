@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ehouseapp.data\ehouseapp.data.csproj" />
+    <ProjectReference Include="..\..\EHouseApp.Data\EHouseApp.Data.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
