@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using EHouseApp.Data.DatabaseContexts.ApplicationDbContext;
 using EHouseApp.Data.DatabaseContexts.AuthenticationDbContext;
 using EHouseApp.Data.Entities;
+using EHouseApp.web.Interfaces;
+using EHouseApp.web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -31,7 +33,7 @@ namespace EHouseApp.web
             services.AddDbContextPool<AuthenticationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection"),
             sqlServerOptions => {
-                sqlServerOptions.MigrationsAssembly("ehouseapp.data");
+                sqlServerOptions.MigrationsAssembly("EHouseApp.Data");
             }
             ));
 
@@ -39,7 +41,7 @@ namespace EHouseApp.web
             services.AddDbContextPool<ApplicationDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection"), 
             sqlServerOptions => {
-                sqlServerOptions.MigrationsAssembly("ehouseapp.data");
+                sqlServerOptions.MigrationsAssembly("EHouseApp.Data");
                 }
             ));
 
@@ -57,6 +59,8 @@ namespace EHouseApp.web
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
+
+            services.AddTransient<IAccountsService, AccountsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,8 +80,10 @@ namespace EHouseApp.web
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
