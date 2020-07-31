@@ -21,7 +21,8 @@ namespace EHouseApp.web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var properties = _propertyService.GetAllProperties();
+            return View(properties);
         }
 
         [HttpGet]
@@ -32,21 +33,16 @@ namespace EHouseApp.web.Controllers
 
         public async Task<IActionResult> Add(PropertyModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    await _propertyService.AddProperty(model);
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                    return View();
-                }
+                await _propertyService.AddProperty(model);
+                return RedirectToAction(nameof(Index));
             }
-
-            return View(new ErrorViewModel());
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+                return View();
+            }
         }
     }
 }

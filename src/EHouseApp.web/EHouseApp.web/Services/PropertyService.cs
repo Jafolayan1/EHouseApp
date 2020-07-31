@@ -38,5 +38,10 @@ namespace EHouseApp.web.Services
             await _dbContext.AddAsync(property);
             await _dbContext.SaveChangesAsync();
         }
+
+        public IEnumerable<Property> GetAllProperties()
+        {
+            return _dbContext.Properties;
+        }
     }
 }
