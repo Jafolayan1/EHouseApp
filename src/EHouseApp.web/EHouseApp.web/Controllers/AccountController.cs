@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace EHouseApp.web.Controllers
 {
-    public class AccountsController : Controller
+    public class AccountController : Controller
     {
         private readonly IAccountsService _accountsService;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AccountsController(IAccountsService accountsService, SignInManager<ApplicationUser> signInManager)
+
+        public AccountController(IAccountsService accountsService, SignInManager<ApplicationUser> signInManager)
         {
             _accountsService = accountsService;
             _signInManager = signInManager;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Logout()
@@ -54,7 +54,6 @@ namespace EHouseApp.web.Controllers
                 ModelState.AddModelError("", e.Message);
                 return View();
             }
-           
         }
 
         [HttpGet]
@@ -73,14 +72,11 @@ namespace EHouseApp.web.Controllers
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return LocalRedirect("~/");
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
                 return View();
             }
-            
-
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using EHouseApp.web.Interfaces;
 using EHouseApp.web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace EHouseApp.web.Controllers
 {
+    [Authorize]
     public class PropertiesController : Controller
     {
         private readonly IPropertyService _propertyService;
@@ -18,6 +20,7 @@ namespace EHouseApp.web.Controllers
             _propertyService = propertyService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
@@ -31,6 +34,7 @@ namespace EHouseApp.web.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Add(PropertyModel model)
         {
             try
