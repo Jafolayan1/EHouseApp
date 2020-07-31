@@ -10,35 +10,36 @@ namespace EHouseApp.web.Models
     public class PropertyModel
     {
         [Required]
-        [StringLength(maximumLength: 25, MinimumLength = 8)]
+        [StringLength(100, ErrorMessage = "Title cannot be more than 100 words.")]
         public string Title { get; set; }
 
         public string ImageUrl { get; set; }
 
         [Required]
-        [DataType(DataType.Currency)]
+        [Range(0, double.MaxValue, ErrorMessage = "Please enter valid price")]
         public double Price { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Cannot be more than  20")]
+        [Range(0, 20, ErrorMessage = "should not be more than 20")]
         public int NumberOfRooms { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Cannot be more than  20")]
+        [Range(0, 20, ErrorMessage = "should not be more than 20")]
         public int NumberOfBaths { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Cannot be more than  20")]
+        [Range(0, 20, ErrorMessage = "should not be more than 20")]
         public int NumberOfToilets { get; set; }
 
         [Required]
         public string Address { get; set; }
 
         [Required]
-        [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
+        [Phone(ErrorMessage = "Phone number is not in correct format")]
         public string ContactPhoneNumber { get; set; }
     }
 }

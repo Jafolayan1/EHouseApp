@@ -1,4 +1,5 @@
-﻿using EHouseApp.web.Models;
+﻿using EHouseApp.web.Interfaces;
+using EHouseApp.web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,11 @@ namespace EHouseApp.web.Controllers
 {
     public class PropertiesController : Controller
     {
-        public PropertiesController()
+        private readonly IPropertyService _propertyService;
+
+        public PropertiesController(IPropertyService propertyService)
         {
+            _propertyService = propertyService;
         }
 
         [HttpGet]
@@ -26,9 +30,23 @@ namespace EHouseApp.web.Controllers
             return View();
         }
 
-        public IActionResult Add(PropertyModel model)
+        public async Task<IActionResult> Add(PropertyModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _propertyService.AddProperty(model);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                    return View();
+                }
+            }
+
+            return View(new ErrorViewModel());
         }
     }
 }

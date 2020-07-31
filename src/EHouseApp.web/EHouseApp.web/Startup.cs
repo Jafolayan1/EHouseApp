@@ -32,17 +32,19 @@ namespace EHouseApp.web
             //When sql run migration .. The migration folder should be created in the EhouseApp.Data project ...
             services.AddDbContextPool<AuthenticationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection"),
-            sqlServerOptions => {
+            sqlServerOptions =>
+            {
                 sqlServerOptions.MigrationsAssembly("EHouseApp.Data");
             }
             ));
 
             //When sql run migration .. The migration folder should be created in the EhouseApp.Data project ...
-            services.AddDbContextPool<ApplicationDbContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection"), 
-            sqlServerOptions => {
+            services.AddDbContextPool<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection"),
+            sqlServerOptions =>
+            {
                 sqlServerOptions.MigrationsAssembly("EHouseApp.Data");
-                }
+            }
             ));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -61,6 +63,7 @@ namespace EHouseApp.web
             });
 
             services.AddTransient<IAccountsService, AccountsService>();
+            services.AddTransient<IPropertyService, PropertyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +86,6 @@ namespace EHouseApp.web
             app.UseAuthentication();
 
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {
@@ -112,18 +114,18 @@ namespace EHouseApp.web
             var userPassword = "superpassword@2020";
 
             var roleManager = svp.GetRequiredService<RoleManager<IdentityRole>>();
-            foreach (var role in roles) 
+            foreach (var role in roles)
             {
                 var roleExist = await roleManager.RoleExistsAsync(role);
                 if (!roleExist)
                 {
-                    await roleManager.CreateAsync(new IdentityRole{Name = role});
+                    await roleManager.CreateAsync(new IdentityRole { Name = role });
                 }
             }
 
             var userManager = svp.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByEmailAsync(userEmail);
-            if(user is null)
+            if (user is null)
             {
                 user = new ApplicationUser
                 {
